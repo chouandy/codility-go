@@ -9,8 +9,10 @@ package iterations
 //    https://graphics.stanford.edu/~seander/bithacks.html#ZerosOnRightModLookup。
 // 4. 如果有找到右邊連續為 0 的個數，使用二元運算子 "右移 (>>)"，將 N 直接往右移至非 0 的位址，再開始尋找。
 // 5. 當 N 大於 0 則重複以下步驟
-//   (1) N 除以 2 取餘數 (%)，如果為 1，則重置 "目前計算數量"，如果為 0，則累加 "目前計算數量"
-//   (2) 如果 "目前計算數量" 大於 "最大計算數量"，則將 "最大計算數量" 更新為 "目前計算數量"
+//   (1) N 除以 2 取餘數 (%)，如果為 1，則重置 "目前計算數量"
+//   (2) N 除以 2 取餘數 (%)，如果為 0，則累加 "目前計算數量"，且如果 "目前計算數量" 大於 "最大計算數量"，
+//       則將 "最大計算數量" 更新為 "目前計算數量"
+//   (3) N 右移 1
 // 6. 返回 "最大計算數量"
 
 var mod37BitPosition = []uint{
@@ -34,16 +36,17 @@ func BinaryGap(N int) int {
 	}
 
 	for N > 0 {
-		// Reset or increase the counter
 		if N%2 == 1 {
+			// Reset the counter
 			currentLength = 0
 		} else {
+			// Increase the counter
 			currentLength++
-		}
 
-		// Update max length
-		if currentLength > maxLength {
-			maxLength = currentLength
+			// Update max length
+			if currentLength > maxLength {
+				maxLength = currentLength
+			}
 		}
 
 		// N right shift 1

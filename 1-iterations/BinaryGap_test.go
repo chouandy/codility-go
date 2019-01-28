@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSolution(t *testing.T) {
+func TestBinaryGap(t *testing.T) {
 	testCases := []struct {
 		N        int
 		expected int
@@ -34,5 +34,11 @@ func TestSolution(t *testing.T) {
 		t.Run(fmt.Sprintf("BinaryGap[%d]", i+1), func(t *testing.T) {
 			assert.Equal(t, testCase.expected, BinaryGap(testCase.N))
 		})
+	}
+}
+
+func BenchmarkBinaryGap(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		BinaryGap(1041)
 	}
 }
